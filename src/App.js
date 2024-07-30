@@ -1,24 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import ReadingPage from "./pages/ReadingPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import BookDetailPage from "./pages/BookDetailPage";
+import PublicLayout from "./layout/PublicLayout";
+import MThemeProvider from "./theme/MThemeProvider";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <MThemeProvider>
+        <Routes>
+          <Route path="/" element={<PublicLayout />}>
+            <Route index element={<HomePage />} />
+            <Route path="books/:id" element={<BookDetailPage />} />
+            <Route path="reading" element={<ReadingPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Route>
+        </Routes>
+      </MThemeProvider>
+    </BrowserRouter>
   );
 }
 
